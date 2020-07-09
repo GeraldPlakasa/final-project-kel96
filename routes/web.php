@@ -11,16 +11,7 @@
 |
 */
 
-Route::get('/', 'HomeController@Home');
-
-Route::get('/form', 'AuthController@Form');
-
-Route::post('/welcome', 'AuthController@Welcome');
-
-Route::get('/master', function(){
+Route::get('/', function(){
 	return view("layouts.master");
 });
 
-Route::get('/data-tables', function(){
-	return view("data-table");
-});
