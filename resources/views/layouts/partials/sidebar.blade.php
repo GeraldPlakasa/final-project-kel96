@@ -6,7 +6,9 @@
         </div>
         <div class="info">
           <a href="#" class="d-block">Alexander Pierce</a>
+          <p class="text-white">Reputasi: 0</p>
         </div>
+
       </div>
 
       <!-- Sidebar Menu -->
