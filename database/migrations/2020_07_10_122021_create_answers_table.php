@@ -17,10 +17,12 @@ class CreateAnswersTable extends Migration
             $table->bigIncrements('id');
             $table->text('bodytext');
             $table->boolean('marked')->default(false);
-            $table->integer('user_id')->nullable();
+            $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('question_id');
-            $table->foreign('question_id')->references('id')->on('questions')->onDelete('cascade');
             $table->timestamps();
+
+            $table->foreign('question_id')->references('id')->on('questions')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

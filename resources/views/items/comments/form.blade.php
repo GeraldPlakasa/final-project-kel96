@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('content')
-  <form action="/komentar/" method="POST" class="ml-4 mr-4">
+  <form action="/komentar/{{$id}}" method="POST" class="ml-4 mr-4">
   @csrf
   <div class="form-group">
     <label for="isi">Isi:</label>

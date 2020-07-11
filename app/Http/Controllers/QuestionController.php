@@ -3,10 +3,18 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Question;
+use App\Answer;
+use App\User;
 
 class QuestionController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth')->except('index', 'show');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +23,19 @@ class QuestionController extends Controller
     public function index()
     {
         $questions = Question::all();
-        return view('questions.index', compact('questions'));
+        $active_user = Auth::id(); // get current user id
+
+        foreach ($questions as $question) { 
+            // menambahkan author ke $question yang berisi nama user_id
+            $question->author = User::where('id', $question->user_id)->first();
+        }
+
+        // kalo belum ada comment yang masuk
+        if($questions->isEmpty()) {
+            return view('items.questions.null');
+        } else {
+            return view('items.questions.index', compact('questions', 'active_user'));
+        }
     }
 
     /**
@@ -25,7 +45,7 @@ class QuestionController extends Controller
      */
     public function create()
     {
-        return view('questions.form');
+        return view('items.questions.form');
     }
 
     /**
@@ -40,9 +60,9 @@ class QuestionController extends Controller
             'title' => $request['title'],
             'content' => $request['content'],
             'point' => 0,
-            'user_id' => 1
+            'user_id' => Auth::id()
         ]);
-        return redirect('/questions');
+        return redirect('/pertanyaan');
     }
 
     /**
@@ -53,9 +73,16 @@ class QuestionController extends Controller
      */
     public function show($id)
     {
-        $questions = Question::all();
-        $question = $questions->find($id);
-        return view('questions.show', compact('question'));
+        $question = Question::find($id);
+        $question->author = User::where('id', $question->user_id)->first();
+        $question->answers = Answer::where('question_id', $question->id)->get();
+
+        foreach ($question["answers"] as $answer) { 
+            // menambahkan author ke $question yang berisi nama user_id
+            $answer->author = User::where('id', $answer->user_id)->first();
+        }
+        $active_user = Auth::id(); // get current user id
+        return view('items.questions.show', compact('question', 'active_user'));
     }
 
     /**
@@ -68,7 +95,7 @@ class QuestionController extends Controller
     {
         $questions = Question::all();
         $question = $questions->find($id);
-        return view('questions.edit', compact('question'));
+        return view('items.questions.edit', compact('question'));
     }
 
     /**
@@ -84,7 +111,7 @@ class QuestionController extends Controller
         $question->title = $request['title'];
         $question->content = $request['content'];
         $question->save();
-        return redirect('/questions');
+        return redirect('/pertanyaan');
     }
 
     /**
@@ -96,6 +123,6 @@ class QuestionController extends Controller
     public function destroy($id)
     {
         $question = Question::find($id)->delete();
-        return redirect('/questions');
+        return redirect('/pertanyaan');
     }
 }

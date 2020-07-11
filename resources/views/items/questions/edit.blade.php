@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="m-3">
-  <form action="/questions/{{$question->id}}" method="post">
+  <form action="/pertanyaan/{{$question->id}}" method="post">
     @csrf
     @method('PUT')
     <div class="form-group">
@@ -12,9 +12,9 @@
     </div>
     <div class="form-group">
       <label for="content">Pertanyaan:</label>
-      <input type="text-box" class="form-control" value="{{$question->content}}" placeholder="Enter Content" name="content" id="content">
+      <textarea type="text" class="form-control" name="content" placeholder="Tuliskan isi" id="content" rows="10">{{$question->content}}</textarea>
     </div>
-    <button type="submit" class="btn btn-primary">Edit</button>
+    <button type="submit" class="btn btn-primary">Simpan</button>
   </form>
 </div>
 
