@@ -60,6 +60,7 @@ class QuestionController extends Controller
             'title' => $request['title'],
             'content' => $request['content'],
             'point' => 0,
+            'tag' => $request['tag'],
             'user_id' => Auth::id()
         ]);
         return redirect('/pertanyaan');
@@ -110,6 +111,7 @@ class QuestionController extends Controller
         $question = Question::find($id);
         $question->title = $request['title'];
         $question->content = $request['content'];
+        $question->tag = $request['tag'];
         $question->save();
         return redirect('/pertanyaan');
     }

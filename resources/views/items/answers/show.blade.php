@@ -11,14 +11,14 @@
       <footer class="blockquote-footer">Author: {{$answer->author->name}}</footer>
       <footer class="blockquote-footer">Diunggah pada: {{$answer->created_at}}</footer>
       <footer class="blockquote-footer">Terakhir diubah: {{$answer->updated_at}}</footer><br>
-      <a href="/komentar/{{$answer->id}}/create" class="btn btn-primary">Tambah komentar</a>
+      <a href="/komentar/{{$answer->id}}/create" class="btn btn-sm btn-primary">Beri komentar</a>
       
       @if($answer->user_id == $active_user)
-          <a href="/jawaban/{{$answer->id}}/edit" class="btn btn-default"><i class="fas fa-edit"></i></a>
+          <a href="/jawaban/{{$answer->id}}/edit" class="btn btn-sm btn-default"><i class="fas fa-edit"></i> Edit jawaban</a>
           <form action="/jawaban/{{$answer->id}}" method="POST" style="display: inline;">
             @csrf
             @method('DELETE')
-            <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
+            <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i> Hapus</button>
           </form>
       @endif
     </div>
@@ -35,11 +35,11 @@
 
         {{-- cek kalau hanya pembuat komentar yang bisa edit dan delete --}}
         @if($comment->pemberi_komentar_id == $active_user)
-          <a href="/komentar/{{$comment->id}}/edit" class="btn btn-default"><i class="fas fa-edit"></i></a>
+          <a href="/komentar/{{$comment->id}}/edit" class="btn btn-sm btn-default"><i class="fas fa-edit"></i> Edit</a>
           <form action="/komentar/{{$comment->id}}" method="POST" style="display: inline;">
             @csrf
             @method('DELETE')
-            <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
+            <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i> Hapus</button>
           </form>
         @endif
       </div>
