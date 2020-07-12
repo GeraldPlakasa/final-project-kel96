@@ -37,6 +37,10 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    protected $attributes = [
+        'reputasion_point' => 0,
+    ];
+
     public function Comment() {
         return $this->hasMany('Comments');
     }

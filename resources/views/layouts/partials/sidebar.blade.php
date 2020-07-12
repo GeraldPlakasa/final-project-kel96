@@ -1,12 +1,17 @@
 <div class="sidebar">
       <!-- Sidebar user (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-        <div class="image">
-          <img src="{{ asset('adminlte/dist/img/user2-160x160.jpg')}}" class="img-circle elevation-2" alt="User Image">
+        <div class="image text-center">
+          <i class="fas fa-user-circle fa-2x" style="color: #d6d6d6"></i>
         </div>
         <div class="info">
-          <a href="#" class="d-block">Alexander Pierce</a>
-          <p class="text-white">Reputasi: 0</p>
+          @if(null !== Auth::user())
+            <a href="/home" class="d-block">{{ Auth::user()->name }}</a>
+            <p class="text-white">Reputasi: {{ Auth::user()->reputasion_point }}</p>
+          @else
+            <a href="/home" class="d-block">Guest</a>
+            <p class="text-white">Reputasi: -</p>
+          @endif
         </div>
 
       </div>

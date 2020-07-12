@@ -40,4 +40,5 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/jawaban/{id}', 'JawabanController@show'); // menampilkan  jawaban dari pertanyaan dengan id tertentu
 
 Auth::routes();
+//menampilkan CRUD dari pertanyaan
 Route::resource('pertanyaan', 'QuestionController');
