@@ -13,11 +13,11 @@
 
         {{-- cek kalau hanya pembuat komentar yang bisa edit dan delete --}}
         @if($comment->pemberi_komentar_id == $active_user)
-          <a href="/komentar/{{$comment->id}}/edit" class="btn btn-secondary btn-sm">Edit</a>
+          <a href="/komentar/{{$comment->id}}/edit" class="btn btn-sm btn-secondary btn-sm">Edit komentar</a>
             <form action="/komentar/{{$comment->id}}" method="POST" style="display: inline">
               @csrf
               @method('DELETE')
-              <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
+              <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i> Hapus</button>
             </form>
         @endif
         
